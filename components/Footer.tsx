@@ -74,12 +74,12 @@ export default function Footer() {
               </li>
 
               <li>
-                <Link
+                {/* <Link
                   href="/contact-us"
                   className="text-black hover:text-white"
-                >
-                  Contact Us
-                </Link>
+                > */}
+                  Contact Us : <br></br>support@krack-ai.com
+                {/* </Link> */}
               </li>
             </ul>
           </div>
@@ -93,14 +93,14 @@ export default function Footer() {
             <ul className="space-y-3">
               {technologies.slice(0, 8).map((tech) => (
                 <li key={tech}>
-                  <Link
+                  {/* <Link
                     href={`/interview-questions/${tech
                       .toLowerCase()
                       .replaceAll(" ", "-")}`}
                     className="text-black hover:text-white"
-                  >
+                  > */}
                     {tech} Interview Questions
-                  </Link>
+                  {/* </Link> */}
                 </li>
               ))}
             </ul>
@@ -115,14 +115,14 @@ export default function Footer() {
             <ul className="space-y-3">
               {technologies.slice(8).map((tech) => (
                 <li key={tech}>
-                  <Link
+                  {/* <Link
                     href={`/interview-questions/${tech
                       .toLowerCase()
                       .replaceAll(" ", "-")}`}
                     className="text-black hover:text-white"
-                  >
+                  > */}
                     {tech} Interview Questions
-                  </Link>
+                  {/* </Link> */}
                 </li>
               ))}
             </ul>

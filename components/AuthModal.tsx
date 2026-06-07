@@ -448,7 +448,7 @@ export default function AuthModal({
       };
 
     return (
-        <div className="fixed inset-0 z-[999] bg-black/50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[9999999] bg-black/50 flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-2xl rounded-3xl shadow-xl max-h-[90vh] overflow-y-auto">
 
             <Snackbar

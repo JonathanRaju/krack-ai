@@ -81,11 +81,12 @@ export default function Pricing() {
             const data: Plan[] =
                 await response.json();
 
-            setPlans(
-                data.filter(
+            if(data){
+                setPlans(
+                data?.filter(
                     (plan) => plan.active
                 )
-            );
+            );}
         } catch (error) {
             console.error(error);
         } finally {

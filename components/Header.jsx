@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import AuthModal from "./AuthModal";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
@@ -68,10 +69,13 @@ const loadUser = async () => {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-10 text-slate-600">
-          <a href="#features">Features</a>
-          <a href="#privacy">Privacy</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#footer">Interview Q&A</a>
+        <span className="cursor-pointer" onClick={() => router.push('/#features')}>Features</span>
+            <span className="cursor-pointer" onClick={() => router.push('/#reviews')}>Reviews</span>
+            <span className="cursor-pointer" onClick={() => router.push('/#privacy')}>Privacy</span>
+            <span className="cursor-pointer" onClick={() => router.push('/#pricing')}>Pricing</span>
+          <Link className="cursor-pointer" href="/download">Download</Link>
+
+          
         </nav>
 
         {/* Desktop Button */}
@@ -82,6 +86,7 @@ const loadUser = async () => {
         setShowProfileMenu(!showProfileMenu)
       }
       className="
+        hidden md:block
         w-12
         h-12
         rounded-full
@@ -150,92 +155,34 @@ const loadUser = async () => {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden border-t bg-white">
+        <div className="md:hidden border-t z-1000000 bg-white">
           <div className="flex flex-col p-4 gap-4">
 
-            <a href="#features">Features</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#privacy">Privacy</a>
-            <a href="#pricing">Pricing</a>
+            <span onClick={() => router.push('/#features')}>Features</span>
+            <span onClick={() => router.push('/#reviews')}>Reviews</span>
+            <span onClick={() => router.push('/#privacy')}>Privacy</span>
+            <span onClick={() => router.push('/#pricing')}>Pricing</span>
+            <span onClick={() => router.push('/download')}>Download</span>
 
-            {user.firstName ? (
-  <div className="relative">
-    <button
-      onClick={() =>
-        setShowProfileMenu(
-          !showProfileMenu
-        )
-      }
-      className="
-        w-12
-        h-12
-        rounded-full
-        text-white
-        font-bold
-        bg-gradient-to-r
-        from-pink-500
-        to-orange-300
-        flex
-        items-center
-        justify-center
-      "
-    >
-      {`${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`}
-    </button>
+            
 
-    {showProfileMenu && (
-      <div
-        className="
-          absolute
-          right-0
-          mt-3
-          w-48
-          bg-white
-          rounded-xl
-          shadow-xl
-          border
-          overflow-hidden
-        "
-      >
-        <button
-          onClick={() => {
-            setShowProfileMenu(false);
-            router.push("/profile");
-          }}
-          className="
-            w-full
-            text-left
-            px-4
-            py-3
-            hover:bg-gray-50
-          "
-        >
-          Profile
-        </button>
-
-        <button
-          onClick={handleLogout}
-          className="
-            w-full
-            text-left
-            px-4
-            py-3
-            text-red-500
-            hover:bg-red-50
-          "
-        >
-          Logout
-        </button>
-      </div>
-    )}
-  </div>
-) : (
+            {user?.firstName ? (
+                <>
+                <span
+            onClick={() => {
+                setShowProfileMenu(false);
+                router.push("/profile");
+                setOpen(false)
+              }}>Profile</span>
+            <span onClick={handleLogout}>Logout</span>
+                </>
+            ) : (
   <button
     onClick={() =>
       setShowAuthModal(true)
     }
     className="
-      hidden md:block
+       md:block
       px-8 py-3
       rounded-full
       text-white
