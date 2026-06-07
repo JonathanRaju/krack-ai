@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
+// @ts-ignore
 import { load } from "@cashfreepayments/cashfree-js";
 import Snackbar from "@/components/SnackBar";
 import useSnackbar from "@/hooks/useSnackbar";
@@ -129,10 +130,10 @@ export default function Pricing() {
                                 "application/json",
                         },
                         body: JSON.stringify({
-                            email:
-                                user.email,
-                            phone:
-                                user.phone,
+                            // @ts-ignore
+                            email:user.email,
+                            // @ts-ignore
+                            phone:user.phone,
                             planId:
                                 plan.id,
                         }),
