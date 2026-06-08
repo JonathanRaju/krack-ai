@@ -217,13 +217,13 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-orange-50 py-12">
       <div className="max-w-5xl mx-auto px-6">
 
-        <div className="bg-white rounded-3xl shadow-xl p-8">
+        <div className="bg-white text-black rounded-3xl shadow-xl p-8">
 
           <h1 className="text-4xl font-bold mb-2">
             My Profile
           </h1>
 
-          <p className="text-gray-500 mb-10">
+          <p className="text-black mb-10">
             Update your
             professional
             details

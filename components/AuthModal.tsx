@@ -474,7 +474,7 @@ export default function AuthModal({
 
                     {/* LOGIN */}
                     {mode === "login" && (
-                        <div className="space-y-4">
+                        <div className="space-y-4 text-black">
 
                             <input
                                 name="email"
@@ -528,7 +528,7 @@ export default function AuthModal({
                     {mode === "register" && (
                         <>
                             {/* Progress */}
-                            <div className="flex items-center gap-2 mb-8">
+                            <div className="flex items-center gap-2 mb-8 text-black">
                                 {[1, 2, 3].map((item) => (
                                     <div
                                         key={item}
@@ -542,7 +542,7 @@ export default function AuthModal({
 
                             {/* STEP 1 */}
                             {step === 1 && (
-                                <div className="space-y-4">
+                                <div className="space-y-4 text-black">
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <input
@@ -615,7 +615,7 @@ export default function AuthModal({
 
                             {/* STEP 2 */}
                             {step === 2 && (
-                                <div className="space-y-4">
+                                <div className="space-y-4 text-black">
 
                                     <h3 className="font-semibold">
                                         Verify OTP sent to your email :
@@ -648,7 +648,7 @@ export default function AuthModal({
 
                             {/* STEP 3 */}
                             {step === 3 && (
-                                <div className="space-y-5">
+                                <div className="space-y-5 text-black">
 
                                     <input
                                         name="techStack"

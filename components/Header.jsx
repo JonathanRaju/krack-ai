@@ -155,14 +155,29 @@ const loadUser = async () => {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden border-t z-1000000 bg-white">
+        <div className="md:hidden border-t z-1000000 bg-white text-black">
           <div className="flex flex-col p-4 gap-4">
 
-            <span onClick={() => router.push('/#features')}>Features</span>
-            <span onClick={() => router.push('/#reviews')}>Reviews</span>
-            <span onClick={() => router.push('/#privacy')}>Privacy</span>
-            <span onClick={() => router.push('/#pricing')}>Pricing</span>
-            <span onClick={() => router.push('/download')}>Download</span>
+            <span onClick={() => {
+                router.push('/#features')
+                setOpen(false)
+                }}>Features</span>
+            <span onClick={() => {
+                router.push('/#reviews')
+                setOpen(false)
+                }}>Reviews</span>
+            <span onClick={() => {
+                router.push('/#privacy')
+                setOpen(false)
+                }}>Privacy</span>
+            <span onClick={() => {
+                router.push('/#pricing')
+                setOpen(false)
+                }}>Pricing</span>
+            <span onClick={() => {
+                router.push('/download')
+                setOpen(false)
+                }}>Download</span>
 
             
 

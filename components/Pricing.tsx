@@ -65,6 +65,7 @@ export default function Pricing() {
             if (data.authenticated) {
                 console.log(data.user)
                 setUser({ ...data.user });
+                return data.user
             } else {
                 setUser(null);
             }
@@ -110,16 +111,16 @@ export default function Pricing() {
     const handleBuy = async (
         plan: Plan
     ) => {
-        if (!user) {
-            showSnackbar(
-                "Please login first",
-                "error"
-            );
+        let currentUser = user;
 
-
-            return;
+        if (!currentUser) {
+            currentUser = await loadUser();
         }
 
+        if (!currentUser) {
+            showSnackbar("Please login first", "error");
+            return;
+        }
         try {
             const response =
                 await fetch(
@@ -132,9 +133,9 @@ export default function Pricing() {
                         },
                         body: JSON.stringify({
                             // @ts-ignore
-                            email:user.email,
+                            email:currentUser.email,
                             // @ts-ignore
-                            phone:user.phone,
+                            phone:currentUser.phone,
                             planId:
                                 plan.id,
                         }),

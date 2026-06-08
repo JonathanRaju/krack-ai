@@ -322,24 +322,6 @@ export default function DownloadPage() {
             assistance during technical interviews.
           </p>
 
-          <a
-            href="/api/download/windows"
-            className="
-              inline-block
-              mt-10
-              px-10
-              py-5
-              rounded-full
-              text-white
-              font-semibold
-              bg-gradient-to-r
-              from-pink-500
-              to-orange-300
-            "
-          >
-            Download Now
-          </a>
-
         </div>
       </section>
 
