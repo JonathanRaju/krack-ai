@@ -458,7 +458,7 @@ export default function AuthModal({
             />
 
                 {/* Header */}
-                <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
+                <div className="sticky top-0 bg-white text-black border-b px-6 py-4 flex items-center justify-between">
                     <h2 className="text-2xl font-bold">
                         {mode === "login"
                             ? "Sign In"
@@ -670,7 +670,7 @@ export default function AuthModal({
                                         name="role"
                                         value={regsiterForm.role}
                                         onChange={handleChange}
-                                        placeholder="Tech Stack"
+                                        placeholder="Role"
                                         className="w-full border rounded-xl p-4"
                                     />
 
@@ -781,7 +781,7 @@ export default function AuthModal({
                                 </div>
                             )}
 
-                            <p className="text-center mt-6">
+                            <p className="text-center text-black mt-6">
                                 Already have an account?{" "}
                                 <button
                                     className="text-pink-500 font-semibold"
