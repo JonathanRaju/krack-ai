@@ -406,7 +406,7 @@ export default function AuthModal({
           const data =
             await response.json();
       
-          if (!response.ok) {
+          if (data.error) {
             showSnackbar(
               data.error ||
                 "Login failed",

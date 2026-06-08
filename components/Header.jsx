@@ -73,9 +73,13 @@ const loadUser = async () => {
             <span className="cursor-pointer" onClick={() => router.push('/#reviews')}>Reviews</span>
             <span className="cursor-pointer" onClick={() => router.push('/#privacy')}>Privacy</span>
             <span className="cursor-pointer" onClick={() => router.push('/#pricing')}>Pricing</span>
+            <span className="cursor-pointer" onClick={() => {
+                router.push('/referral-program')
+                }}>Referral Program</span>
+
           <Link className="cursor-pointer" href="/download">Download</Link>
 
-          
+
         </nav>
 
         {/* Desktop Button */}
@@ -178,6 +182,10 @@ const loadUser = async () => {
                 router.push('/download')
                 setOpen(false)
                 }}>Download</span>
+            <span onClick={() => {
+                router.push('/referral-program')
+                setOpen(false)
+                }}>Referral Program</span>
 
             
 
