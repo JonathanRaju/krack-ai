@@ -2,10 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
+import Snackbar from "@/components/SnackBar";
+import useSnackbar from "@/hooks/useSnackbar";
+
 
 export default function ProfilePage() {
   const [loading, setLoading] =
     useState(true);
+  const {
+        snackbar,
+        showSnackbar,
+    } = useSnackbar();
 
   const [saving, setSaving] =
     useState(false);
@@ -26,6 +33,7 @@ export default function ProfilePage() {
       {
         name: "",
         description: "",
+        techStack:""
       },
     ]);
 
@@ -107,6 +115,7 @@ export default function ProfilePage() {
       {
         name: "",
         description: "",
+        techStack:""
       },
     ]);
   };
@@ -157,6 +166,20 @@ export default function ProfilePage() {
 
       setProjects(updated);
     };
+  const updateProjectTechStack = (
+    index: number,
+    value: string
+  ) => {
+    const updated = [
+      ...projects,
+    ];
+
+    updated[
+      index
+    ].techStack = value;
+
+    setProjects(updated);
+  };
 
   const handleSave =
     async () => {
@@ -192,6 +215,9 @@ export default function ProfilePage() {
           );
           return;
         }
+        showSnackbar(
+          "Profile updated successfully"
+      );
 
         // alert(
         //   "Profile updated successfully"
@@ -215,6 +241,11 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-orange-50 py-12">
+      <Snackbar
+                      open={snackbar.open}
+                      message={snackbar.message}
+                      type={snackbar.type}
+                  />
       <div className="max-w-5xl mx-auto px-6">
 
         <div className="bg-white text-black rounded-3xl shadow-xl p-8">
@@ -412,6 +443,21 @@ export default function ProfilePage() {
                       )
                     }
                     placeholder="Project Description"
+                    className="w-full border rounded-xl p-4"
+                  />
+                  <input
+                    value={
+                      project.techStack || ''
+                    }
+                    onChange={(
+                      e
+                    ) =>
+                      updateProjectTechStack(
+                        index,
+                        e.target.value
+                      )
+                    }
+                    placeholder="Project TechStack. (Ex:- React.JS, Next.JS, JavaScript)"
                     className="w-full border rounded-xl p-4"
                   />
 

@@ -22,14 +22,15 @@ export default function AuthModal({
     const [step, setStep] = useState(1);
 
     const [loginForm, setLoginForm] = useState({
-        email:"",
-        password:""
+        email: "",
+        password: ""
     })
 
     const [projects, setProjects] = useState([
         {
             name: "",
             description: "",
+            techStack: ""
         },
     ]);
     const [otp, setOtp] = useState("")
@@ -43,15 +44,18 @@ export default function AuthModal({
         confirmPassword: "",
         techStack: "",
         codingLanguages: "",
-        role:"",
+        role: "",
         experience: "",
     })
+    const [showLoginPassword, setShowLoginPassword] = useState(false);
+    const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const {
         snackbar,
         showSnackbar,
-      } = useSnackbar();
+    } = useSnackbar();
 
-   
+
 
     if (!open) return null;
 
@@ -129,6 +133,7 @@ export default function AuthModal({
             {
                 name: "",
                 description: "",
+                techStack: ""
             },
         ]);
     };
@@ -152,6 +157,17 @@ export default function AuthModal({
 
         setProjects(updated);
     };
+    const updateProjectTechStack = (index: number,
+        value: string) => {
+        const updated = [...projects];
+
+        updated[index] = {
+            ...updated[index],
+            techStack: value,
+        };
+
+        setProjects(updated);
+    }
     const updateProjectDescription = (
         index: number,
         value: string
@@ -365,87 +381,87 @@ export default function AuthModal({
 
     const handleLoginForm = (
         e: React.ChangeEvent<HTMLInputElement>
-      ) => {
+    ) => {
         setLoginForm({
-          ...loginForm,
-          [e.target.name]: e.target.value,
+            ...loginForm,
+            [e.target.name]: e.target.value,
         });
-      };
-      const handleLogin = async () => {
+    };
+    const handleLogin = async () => {
         if (!loginForm.email.trim()) {
-          showSnackbar(
-            "Email is required",
-            "error"
-          );
-          return;
-        }
-      
-        if (!loginForm.password.trim()) {
-          showSnackbar(
-            "Password is required",
-            "error"
-          );
-          return;
-        }
-      
-        try {
-          const response = await fetch(
-            "/api/login",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
-              body: JSON.stringify(
-                loginForm
-              ),
-            }
-          );
-      
-          const data =
-            await response.json();
-      
-          if (data.error) {
             showSnackbar(
-              data.error ||
-                "Login failed",
-              "error"
+                "Email is required",
+                "error"
             );
             return;
-          }
-      
-          showSnackbar(
-            "Login Successful"
-          );
-      
-          // Store user
-          localStorage.setItem(
-            "user",
-            JSON.stringify(data.user)
-          );
-          if (data.user) {
-            onLoginSuccess?.();
-            onClose();
-          }
-      
-        // //   Close modal
-        //   setTimeout(() => {
-        //     onClose();
-      
-        //     window.location.href =
-        //       data.user?.isAdmin
-        //         ? "/admin"
-        //         : "/profile";
-        //   }, 1000);
-      
-        } catch (error) {
-          showSnackbar(
-            "Something went wrong",
-            "error"
-          );
         }
-      };
+
+        if (!loginForm.password.trim()) {
+            showSnackbar(
+                "Password is required",
+                "error"
+            );
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                "/api/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                    },
+                    body: JSON.stringify(
+                        loginForm
+                    ),
+                }
+            );
+
+            const data =
+                await response.json();
+
+            if (data.error) {
+                showSnackbar(
+                    data.error ||
+                    "Login failed",
+                    "error"
+                );
+                return;
+            }
+
+            showSnackbar(
+                "Login Successful"
+            );
+
+            // Store user
+            localStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
+            if (data.user) {
+                onLoginSuccess?.();
+                onClose();
+            }
+
+            // //   Close modal
+            //   setTimeout(() => {
+            //     onClose();
+
+            //     window.location.href =
+            //       data.user?.isAdmin
+            //         ? "/admin"
+            //         : "/profile";
+            //   }, 1000);
+
+        } catch (error) {
+            showSnackbar(
+                "Something went wrong",
+                "error"
+            );
+        }
+    };
 
     return (
         <div className="fixed inset-0 z-[9999999] bg-black/50 flex items-center justify-center p-4">
@@ -484,17 +500,29 @@ export default function AuthModal({
                                 className="w-full border rounded-xl p-4"
                             />
 
-                            <input
-                                name="password"
-                                type="password"
-                                value={loginForm.password}
-                                onChange={handleLoginForm}
-                                placeholder="Password"
-                                className="w-full border rounded-xl p-4"
-                            />
+                            <div className="relative">
+                                <input
+                                    name="password"
+                                    type={showLoginPassword ? "text" : "password"}
+                                    value={loginForm.password}
+                                    onChange={handleLoginForm}
+                                    placeholder="Password"
+                                    className="w-full border rounded-xl p-4 pr-14"
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setShowLoginPassword(!showLoginPassword)
+                                    }
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500"
+                                >
+                                    {showLoginPassword ? "Hide" : "Show"}
+                                </button>
+                            </div>
 
                             <button
-                            onClick={handleLogin}
+                                onClick={handleLogin}
                                 className="
                   w-full
                   py-4
@@ -533,8 +561,8 @@ export default function AuthModal({
                                     <div
                                         key={item}
                                         className={`h-2 flex-1 rounded-full ${item <= step
-                                                ? "bg-gradient-to-r from-pink-500 to-orange-300"
-                                                : "bg-gray-200"
+                                            ? "bg-gradient-to-r from-pink-500 to-orange-300"
+                                            : "bg-gray-200"
                                             }`}
                                     />
                                 ))}
@@ -578,23 +606,47 @@ export default function AuthModal({
                                         className="w-full border rounded-xl p-4"
                                     />
 
-                                    <input
-                                        name="password"
-                                        value={regsiterForm.password}
-                                        onChange={handleChange}
-                                        type="password"
-                                        placeholder="Password"
-                                        className="w-full border rounded-xl p-4"
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            name="password"
+                                            value={regsiterForm.password}
+                                            onChange={handleChange}
+                                            type={showRegisterPassword ? "text" : "password"}
+                                            placeholder="Password"
+                                            className="w-full border rounded-xl p-4 pr-14"
+                                        />
 
-                                    <input
-                                        name="confirmPassword"
-                                        value={regsiterForm.confirmPassword}
-                                        onChange={handleChange}
-                                        type="password"
-                                        placeholder="Confirm Password"
-                                        className="w-full border rounded-xl p-4"
-                                    />
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setShowRegisterPassword(!showRegisterPassword)
+                                            }
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500"
+                                        >
+                                            {showRegisterPassword ? "Hide" : "Show"}
+                                        </button>
+                                    </div>
+
+                                    <div className="relative">
+                                        <input
+                                            name="confirmPassword"
+                                            value={regsiterForm.confirmPassword}
+                                            onChange={handleChange}
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            placeholder="Confirm Password"
+                                            className="w-full border rounded-xl p-4 pr-14"
+                                        />
+
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setShowConfirmPassword(!showConfirmPassword)
+                                            }
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500"
+                                        >
+                                            {showConfirmPassword ? "Hide" : "Show"}
+                                        </button>
+                                    </div>
 
                                     <button
                                         onClick={(() => sendOtp())}
@@ -722,12 +774,12 @@ export default function AuthModal({
                                                             type="button"
                                                             onClick={() => removeProject(index)}
                                                             className="
-            flex
-            items-center
-            gap-1
-            text-red-500
-            hover:text-red-600
-          "
+                                                                        flex
+                                                                        items-center
+                                                                        gap-1
+                                                                        text-red-500
+                                                                        hover:text-red-600
+                                                                    "
                                                         >
                                                             <Trash2 size={18} />
                                                             Remove
@@ -758,6 +810,17 @@ export default function AuthModal({
                                                     placeholder="Project Description"
                                                     rows={4}
                                                     className="w-full border rounded-xl p-4"
+                                                />
+                                                <input
+                                                    value={project.techStack || ''}
+                                                    onChange={(e) =>
+                                                        updateProjectTechStack(
+                                                            index,
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    placeholder={`Project ${index + 1} Techstack`}
+                                                    className="w-full border rounded-xl p-4 mb-3"
                                                 />
                                             </div>
                                         ))}
