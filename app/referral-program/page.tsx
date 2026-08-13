@@ -1,3 +1,5 @@
+"use client"
+import React,{useState, useEffect} from 'react'
 
 import {
   Gift,
@@ -6,11 +8,129 @@ import {
   Trophy,
   CheckCircle,
 } from "lucide-react";
+import Snackbar from "@/components/SnackBar";
+import useSnackbar from "@/hooks/useSnackbar";
 
 export default function ReferralProgramPage() {
+  const [friendEmail, setFriendEmail] = useState("");
+const [loading, setLoading] = useState(false);
+const [message, setMessage] = useState("");
+const [user, setUser] = useState({})
+const {
+  snackbar,
+  showSnackbar,
+} = useSnackbar();
+
+ useEffect(() => {
+        loadUser()
+        console.log(user)
+    }, []);
+
+    const loadUser = async () => {
+        try {
+            const response = await fetch("/api/me");
+
+            const data = await response.json();
+
+            if (data.authenticated) {
+                console.log(data.user)
+                setUser({ ...data.user });
+                return data.user
+            } else {
+                setUser({});
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+const handleReferFriend = async () => {
+  if (!friendEmail.trim()) {
+    showSnackbar(
+      "Please enter your friend's email",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const storedUser = user
+
+    if (!storedUser) {
+      showSnackbar(
+        "Please login first",
+        "error"
+      );
+      return;
+    }
+
+
+    if (!user?.email) {
+      showSnackbar(
+        "User email not found",
+        "error"
+      );
+      return;
+    }
+
+    const response = await fetch(
+      "/api/referral",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          referrerEmail: user?.email,
+          referredEmail:
+            friendEmail.trim(),
+        }),
+      }
+    );
+
+    const data =
+      await response.json();
+
+    if (!response.ok || !data.success) {
+      showSnackbar(
+        data.message ||
+          "Failed to send referral",
+        "error"
+      );
+      return;
+    }
+
+    showSnackbar(
+      data.message ||
+        "Referral invitation sent successfully!"
+    );
+
+    setFriendEmail("");
+
+  } catch (error) {
+    console.error(
+      "Referral error:",
+      error
+    );
+
+    showSnackbar(
+      "Something went wrong. Please try again.",
+      "error"
+    );
+
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <main className="bg-[#fafafa] min-h-screen">
-
+<Snackbar
+  open={snackbar.open}
+  message={snackbar.message}
+  type={snackbar.type}
+/>
       {/* HERO */}
 
       <section className="py-24">
@@ -212,20 +332,49 @@ export default function ReferralProgramPage() {
               a Krack-AI plan.
             </p>
 
-            <button
-              className="
-                mt-8
-                bg-white
-                text-pink-600
-                px-8
-                py-4
-                rounded-full
-                font-bold
-                shadow-lg
-              "
-            >
-              Get My Referral Link
-            </button>
+            <div className="mt-8 max-w-md mx-auto">
+
+<input
+  type="email"
+  value={friendEmail}
+  onChange={(e) =>
+    setFriendEmail(e.target.value)
+  }
+  placeholder="Enter friend's email"
+  className="
+    w-full
+    px-5
+    py-4
+    rounded-xl
+    border
+    border-white/50
+    outline-none
+    text-black
+    bg-white
+  "
+/>
+
+<button
+  onClick={handleReferFriend}
+  disabled={loading}
+  className="
+    mt-4
+    bg-white
+    text-pink-600
+    px-8
+    py-4
+    rounded-full
+    font-bold
+    shadow-lg
+    disabled:opacity-50
+  "
+>
+  {loading
+    ? "Sending..."
+    : "Invite Friend"}
+</button>
+
+</div>
 
           </div>
 

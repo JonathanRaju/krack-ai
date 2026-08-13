@@ -24,15 +24,18 @@ export default function Snackbar({
       className={`
         fixed
         top-5
-        right-5
-        z-[9999]
+        left-1/2
+        -translate-x-1/2
+        w-1/2
+        z-[2147483647]
         px-5
         py-3
         rounded-xl
+        text-center
         text-white
         shadow-lg
         animate-in
-        slide-in-from-right-5
+        slide-in-from-top-5
         duration-300
         ${bgColor[type]}
       `}
