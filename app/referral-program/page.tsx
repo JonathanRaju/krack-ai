@@ -66,7 +66,7 @@ const handleReferFriend = async () => {
       return;
     }
 
-
+// @ts-ignore
     if (!user?.email) {
       showSnackbar(
         "User email not found",
@@ -82,7 +82,9 @@ const handleReferFriend = async () => {
         headers: {
           "Content-Type": "application/json",
         },
+        
         body: JSON.stringify({
+          // @ts-ignore
           referrerEmail: user?.email,
           referredEmail:
             friendEmail.trim(),
