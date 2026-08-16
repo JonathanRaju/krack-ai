@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
+import Link from "next/link";
 import Snackbar from "@/components/SnackBar";
 import useSnackbar from "@/hooks/useSnackbar";
 
@@ -9,6 +10,7 @@ import useSnackbar from "@/hooks/useSnackbar";
 export default function ProfilePage() {
   const [loading, setLoading] =
     useState(true);
+  const [remainingMinutes, setRemainingMinutes] = useState(0);
   const {
         snackbar,
         showSnackbar,
@@ -55,6 +57,7 @@ export default function ProfilePage() {
         ) {
           const user =
             data.user;
+          setRemainingMinutes(user.timer || 0);
 
           setForm({
             firstName:
@@ -250,15 +253,50 @@ export default function ProfilePage() {
 
         <div className="bg-white text-black rounded-3xl shadow-xl p-8">
 
-          <h1 className="text-4xl font-bold mb-2">
-            My Profile
-          </h1>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-10">
+  <div>
+    <h1 className="text-4xl font-bold mb-2">
+      My Profile
+    </h1>
 
-          <p className="text-black mb-10">
-            Update your
-            professional
-            details
-          </p>
+    <p className="text-slate-500">
+      Update your professional details
+    </p>
+  </div>
+
+  {/* Remaining Minutes */}
+  <div className="flex items-center gap-4 bg-gradient-to-r from-pink-50 to-orange-50 border border-pink-100 rounded-2xl px-5 py-4">
+    <div>
+      <p className="text-sm text-slate-500">
+        Remaining minutes
+      </p>
+
+      <p className="text-2xl font-bold text-[#020826]">
+        {remainingMinutes} min
+      </p>
+    </div>
+
+    <Link
+      href="/#pricing"
+      className="
+        px-5
+        py-2.5
+        rounded-full
+        text-sm
+        font-semibold
+        text-white
+        bg-gradient-to-r
+        from-pink-500
+        to-orange-300
+        hover:scale-105
+        transition
+        whitespace-nowrap
+      "
+    >
+      Get More Minutes
+    </Link>
+  </div>
+</div>
 
           <div className="grid md:grid-cols-2 gap-5">
 

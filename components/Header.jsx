@@ -70,7 +70,7 @@ const loadUser = async () => {
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-10 text-slate-600">
         <span className="cursor-pointer" onClick={() => router.push('/#features')}>Features</span>
-            <span className="cursor-pointer" onClick={() => router.push('/#reviews')}>Reviews</span>
+            {/* <span className="cursor-pointer" onClick={() => router.push('/#reviews')}>Reviews</span> */}
             <span className="cursor-pointer" onClick={() => router.push('/#privacy')}>Privacy</span>
             <span className="cursor-pointer" onClick={() => router.push('/#pricing')}>Pricing</span>
             <span className="cursor-pointer" onClick={() => {
@@ -78,6 +78,8 @@ const loadUser = async () => {
                 }}>Referral Program</span>
 
           <Link className="cursor-pointer" href="/download">Download</Link>
+          <Link className="cursor-pointer" href="/how-to-use">How To Use</Link>
+
 
 
         </nav>
@@ -166,10 +168,10 @@ const loadUser = async () => {
                 router.push('/#features')
                 setOpen(false)
                 }}>Features</span>
-            <span onClick={() => {
+            {/* <span onClick={() => {
                 router.push('/#reviews')
                 setOpen(false)
-                }}>Reviews</span>
+                }}>Reviews</span> */}
             <span onClick={() => {
                 router.push('/#privacy')
                 setOpen(false)
@@ -182,6 +184,10 @@ const loadUser = async () => {
                 router.push('/download')
                 setOpen(false)
                 }}>Download</span>
+            <span onClick={() => {
+                router.push('/how-to-use')
+                setOpen(false)
+                }}>How To Use</span>            
             <span onClick={() => {
                 router.push('/referral-program')
                 setOpen(false)
