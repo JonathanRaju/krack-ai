@@ -83,7 +83,7 @@ export default function DownloadPage() {
       <section className="pb-24">
         <div className="max-w-7xl mx-auto px-6">
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
 
             {/* WINDOWS */}
             <div className="bg-white border rounded-3xl p-8 shadow-sm">
@@ -157,36 +157,7 @@ export default function DownloadPage() {
 
             {/* MANUAL */}
 
-            <div className="bg-white border rounded-3xl p-8 shadow-sm">
-              <BookOpen
-                size={50}
-                className="text-pink-500"
-              />
-
-              <h3 className="text-3xl font-bold mt-5">
-                User Manual
-              </h3>
-
-              <p className="text-slate-500 mt-3">
-                Installation & Usage Guide
-              </p>
-
-              <a
-                href="https://github.com/JonathanRaju/overlay-ai/releases/download/v1.0.0/Krack-AI.Manual.pdf"
-                className="
-                  mt-8
-                  inline-block
-                  w-full
-                  text-center
-                  py-4
-                  rounded-full
-                  border
-                  font-semibold
-                "
-              >
-                Download PDF
-              </a>
-            </div>
+          
 
           </div>
         </div>
