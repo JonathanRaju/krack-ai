@@ -69,7 +69,7 @@ const handleReferFriend = async () => {
 // @ts-ignore
     if (!user?.email) {
       showSnackbar(
-        "User email not found",
+        "Please Login",
         "error"
       );
       return;
