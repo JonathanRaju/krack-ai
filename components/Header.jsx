@@ -14,7 +14,7 @@ export default function NavBar() {
   const router = useRouter();
 useEffect(() => {
     loadUser()
-    console.log(user)
+    // console.log(user)
 }, []);
 
 const loadUser = async () => {
@@ -24,7 +24,7 @@ const loadUser = async () => {
       const data = await response.json();
   
       if (data.authenticated) {
-        console.log(data.user)
+        // console.log(data.user)
         setUser({...data.user});
       } else {
         setUser(null);
@@ -114,7 +114,7 @@ const loadUser = async () => {
       <div className="absolute right-0 top-14 bg-white shadow-lg rounded-xl border w-48">
         <button
           onClick={() => {
-            console.log("kkkkkk")
+            // console.log("kkkkkk")
             setShowProfileMenu(false);
             router.push("/profile");
           }}

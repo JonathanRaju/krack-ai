@@ -233,14 +233,21 @@ export default function ProfilePage() {
         setSaving(false);
       }
     };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
+    if (loading) {
+      return (
+        <div className="min-h-screen flex flex-col items-center justify-center">
+          <div className="relative flex h-14 w-14 items-center justify-center">
+            <div className="absolute h-14 w-14 rounded-full bg-pink-200 animate-ping opacity-40" />
+    
+            <div className="relative h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-orange-300 animate-pulse" />
+          </div>
+    
+          <p className="mt-5 text-sm font-medium text-slate-500">
+            Loading...
+          </p>
+        </div>
+      );
+    }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-orange-50 py-12">

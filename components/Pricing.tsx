@@ -53,7 +53,7 @@ export default function Pricing() {
 
     useEffect(() => {
         loadUser()
-        console.log(user)
+        // console.log(user)
     }, []);
 
     const loadUser = async () => {
@@ -63,7 +63,7 @@ export default function Pricing() {
             const data = await response.json();
 
             if (data.authenticated) {
-                console.log(data.user)
+                // console.log(data.user)
                 setUser({ ...data.user });
                 return data.user
             } else {
@@ -97,16 +97,31 @@ export default function Pricing() {
 
     if (loading) {
         return (
-            <section
-                id="pricing"
-                className="py-20"
-            >
-                <div className="text-center">
-                    Loading plans...
-                </div>
-            </section>
+          <section
+            id="pricing"
+            className="py-20"
+          >
+            <div className="flex flex-col items-center justify-center py-10">
+              <div
+                className="
+                  h-10
+                  w-10
+                  rounded-full
+                  border-4
+                  border-pink-100
+                  border-t-pink-500
+                  border-r-orange-400
+                  animate-spin
+                "
+              />
+      
+              <p className="mt-4 text-sm font-medium text-slate-500">
+                Loading plans...
+              </p>
+            </div>
+          </section>
         );
-    }
+      }
 
     const handleBuy = async (
         plan: Plan
