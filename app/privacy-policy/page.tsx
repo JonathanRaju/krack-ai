@@ -201,7 +201,7 @@ export default function PrivacyPolicyPage() {
             </h2>
 
             <div className="space-y-3 text-slate-600">
-              <p>Email: support@krack-ai.com</p>
+              <p>Email: krack.ai.ai@gmail.com</p>
               <p>Website: https://krack-ai.com</p>
             </div>
           </section>

@@ -165,39 +165,7 @@ export default function DownloadPage() {
 
       {/* FEATURES */}
 
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-
-          <h2 className="text-5xl font-bold text-center mb-16">
-            Why Krack-AI?
-          </h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            {[
-              "Realtime AI Support",
-              "Coding Assistance",
-              "Interview Guidance",
-              "Auto Type in Any Editor",
-            ].map((item) => (
-              <div
-                key={item}
-                className="border rounded-3xl p-8"
-              >
-                <CheckCircle
-                  className="text-pink-500"
-                  size={32}
-                />
-
-                <h3 className="font-bold text-xl mt-4">
-                  {item}
-                </h3>
-              </div>
-            ))}
-
-          </div>
-        </div>
-      </section>
+     
 
       {/* INSTALLATION */}
 
