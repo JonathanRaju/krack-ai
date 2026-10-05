@@ -16,15 +16,25 @@ export default function ReferralProgramPage() {
 const [loading, setLoading] = useState(false);
 const [message, setMessage] = useState("");
 const [user, setUser] = useState({})
+const [referrals, setReferrals] = useState<any[]>([]);
+const [referralsLoading, setReferralsLoading] = useState(false);
 const {
   snackbar,
   showSnackbar,
 } = useSnackbar();
 
- useEffect(() => {
-        loadUser()
-        // console.log(user)
-    }, []);
+useEffect(() => {
+  loadUser();
+}, []);
+
+useEffect(() => {
+// @ts-ignore
+
+  if (user?.email) {
+    getReferrals();
+  }
+// @ts-ignore
+}, [user?.email]);
 
     const loadUser = async () => {
         try {
@@ -43,6 +53,38 @@ const {
             console.error(error);
         }
     };
+   const getReferrals = async () => {
+// @ts-ignore
+  if (!user?.email) return;
+
+  try {
+    setReferralsLoading(true);
+
+    const response = await fetch("/api/referrals", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+      // @ts-ignore
+        email: user.email,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setReferrals(data.referrals || []);
+    } else {
+      setReferrals([]);
+    }
+  } catch (err) {
+    console.error("Failed to fetch referrals:", err);
+    setReferrals([]);
+  } finally {
+    setReferralsLoading(false);
+  }
+};
 
 const handleReferFriend = async () => {
   if (!friendEmail.trim()) {
@@ -279,47 +321,7 @@ const handleReferFriend = async () => {
 
         </div>
       </section>
-
-      {/* BENEFITS */}
-
       <section className="pb-24">
-        <div className="max-w-6xl mx-auto px-6">
-
-          <h2 className="text-4xl font-bold text-center mb-14 text-[#020826]">
-            Why Refer Friends?
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-
-            {[
-              "Earn bonus AI interview minutes",
-              "No limit on referrals",
-              "Rewards are credited automatically",
-              "Help friends prepare for interviews",
-            ].map((item) => (
-              <div
-                key={item}
-                className="bg-white rounded-3xl border p-6 flex items-center gap-4"
-              >
-                <CheckCircle
-                  className="text-green-500"
-                  size={28}
-                />
-
-                <span className="font-medium text-lg">
-                  {item}
-                </span>
-              </div>
-            ))}
-
-          </div>
-
-        </div>
-      </section>
-
-       {/* CTA */}
-
-       <section className="pb-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
 
           <div className="bg-gradient-to-r from-pink-500 via-orange-400 to-orange-300 rounded-3xl p-10">
@@ -383,55 +385,168 @@ const handleReferFriend = async () => {
         </div>
       </section>
 
-      {/* LEADERBOARD PREVIEW */}
+      {/* BENEFITS */}
 
       <section className="pb-24">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
 
-          <div className="bg-slate-950 rounded-3xl p-10 text-white">
+          <h2 className="text-4xl font-bold text-center mb-14 text-[#020826]">
+            Why Refer Friends?
+          </h2>
 
-            <div className="flex items-center gap-3 mb-6">
-              <Trophy className="text-yellow-400" />
-              <h2 className="text-3xl font-bold">
-                Top Referrers
-              </h2>
-            </div>
+          <div className="grid md:grid-cols-2 gap-8">
 
-            <p className="text-slate-300 mb-8">
-              Coming Soon: Monthly leaderboard
-              with special bonus rewards for top
-              referrers.
-            </p>
+            {[
+              "Earn bonus AI interview minutes",
+              "No limit on referrals",
+              "Rewards are credited automatically",
+              "Help friends prepare for interviews",
+            ].map((item) => (
+              <div
+                key={item}
+                className="bg-white rounded-3xl border p-6 flex items-center gap-4"
+              >
+                <CheckCircle
+                  className="text-green-500"
+                  size={28}
+                />
 
-            <div className="space-y-4">
-
-              <div className="flex justify-between">
-                <span>#1 Santosh</span>
-                <span className="text-yellow-400">
-                  180 Bonus Minutes
+                <span className="font-medium text-lg">
+                  {item}
                 </span>
               </div>
-
-              <div className="flex justify-between">
-                <span>#2 Rajesh</span>
-                <span>
-                  120 Bonus Minutes
-                </span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>#3 Sunil</span>
-                <span>
-                  100 Bonus Minutes
-                </span>
-              </div>
-
-            </div>
+            ))}
 
           </div>
 
         </div>
       </section>
+
+       {/* CTA */}
+
+       
+
+     {/* MY REFERRALS */}
+
+<section className="pb-24">
+  <div className="max-w-5xl mx-auto px-6">
+
+    <div className="bg-white rounded-3xl border overflow-hidden">
+
+      <div className="px-8 py-6 border-b">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl font-bold text-[#020826]">
+              My Referrals
+            </h2>
+
+            <p className="text-slate-500 mt-2">
+              Track your invited friends and referral rewards.
+            </p>
+          </div>
+
+          <div className="bg-pink-50 text-pink-600 px-4 py-2 rounded-full font-bold">
+            {referrals.length} Referrals
+          </div>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto">
+
+        {referralsLoading ? (
+          <div className="p-10 text-center text-slate-500">
+            Loading referrals...
+          </div>
+        ) : referrals.length === 0 ? (
+          <div className="p-10 text-center">
+            <Users
+              size={40}
+              className="mx-auto text-slate-300"
+            />
+
+            <p className="mt-4 text-slate-500">
+              You haven't referred anyone yet.
+            </p>
+
+            <p className="text-sm text-slate-400 mt-1">
+              Invite your friends and start earning free minutes.
+            </p>
+          </div>
+        ) : (
+          <table className="w-full">
+
+            <thead>
+              <tr className="bg-slate-50 text-left">
+                <th className="px-8 py-4 font-semibold text-slate-600">
+                  #
+                </th>
+
+                <th className="px-8 py-4 font-semibold text-slate-600">
+                  Friend Email
+                </th>
+
+                <th className="px-8 py-4 font-semibold text-slate-600">
+                  Status
+                </th>
+
+                <th className="px-8 py-4 font-semibold text-slate-600">
+                  Reward
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {referrals.map((referral, index) => (
+                <tr
+                  key={referral.email}
+                  className="border-t hover:bg-slate-50 transition"
+                >
+                  <td className="px-8 py-5 text-slate-500">
+                    {index + 1}
+                  </td>
+
+                  <td className="px-8 py-5">
+                    <span className="font-medium text-[#020826]">
+                      {referral.email}
+                    </span>
+                  </td>
+
+                  <td className="px-8 py-5">
+                    {referral.status === "SUCCESS" ? (
+                      <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-100 text-green-700 text-sm font-semibold">
+                        <CheckCircle size={16} />
+                        Successful
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-yellow-100 text-yellow-700 text-sm font-semibold">
+                        Pending
+                      </span>
+                    )}
+                  </td>
+
+                  <td className="px-8 py-5">
+                    {referral.rewarded ? (
+                      <span className="font-bold text-green-600">
+                        +10 Minutes
+                      </span>
+                    ) : (
+                      <span className="text-slate-400">
+                        —
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        )}
+
+      </div>
+    </div>
+
+  </div>
+</section>
 
      
 
