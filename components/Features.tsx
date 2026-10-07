@@ -48,20 +48,74 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="bg-[#fafafa]">
-      <div className="max-w-7xl mx-auto px-6 py-18">
+    <section
+      id="features"
+      className="bg-slate-50 border-y border-slate-100"
+    >
+      <div className="max-w-7xl mx-auto px-6 py-20 md:py-24">
 
         {/* Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-7xl font-extrabold leading-tight text-[#020826]">
+
+          <div
+            className="
+              inline-flex
+              items-center
+              gap-2
+              px-4
+              py-2
+              rounded-full
+              bg-blue-50
+              border
+              border-blue-100
+              text-blue-700
+              text-sm
+              font-semibold
+              mb-6
+            "
+          >
+            <Sparkles size={15} />
+            Built for better interviews
+          </div>
+
+          <h2
+            className="
+              text-5xl
+              md:text-6xl
+              lg:text-7xl
+              font-extrabold
+              leading-tight
+              tracking-tight
+              text-slate-950
+            "
+          >
             Everything you need
             <br />
-            <span className="bg-gradient-to-r from-pink-500 via-orange-400 to-orange-300 bg-clip-text text-transparent">
+
+            <span
+              className="
+                bg-gradient-to-r
+                from-blue-600
+                to-indigo-600
+                bg-clip-text
+                text-transparent
+              "
+            >
               for your interview
             </span>
           </h2>
 
-          <p className="mt-6 max-w-2xl mx-auto text-xl md:text-2xl text-slate-500">
+          <p
+            className="
+              mt-6
+              max-w-2xl
+              mx-auto
+              text-lg
+              md:text-xl
+              text-slate-500
+              leading-relaxed
+            "
+          >
             Simple tools that help you stay prepared and
             confident throughout the interview.
           </p>
@@ -69,6 +123,7 @@ export default function Features() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
           {features.map((feature, index) => {
             const Icon = feature.icon;
 
@@ -76,48 +131,81 @@ export default function Features() {
               <div
                 key={index}
                 className="
+                  group
                   bg-white
                   border
-                  border-gray-200
-                  rounded-[28px]
+                  border-slate-200
+                  rounded-2xl
                   p-8
                   hover:-translate-y-1
-                  hover:shadow-lg
+                  hover:border-blue-200
+                  hover:shadow-xl
+                  hover:shadow-slate-200/60
                   transition-all
                   duration-300
                 "
               >
+
                 {/* Icon */}
                 <div
                   className="
                     w-14
                     h-14
-                    rounded-2xl
-                    bg-gradient-to-r
-                    from-pink-500
-                    to-orange-300
+                    rounded-xl
+                    bg-blue-50
+                    border
+                    border-blue-100
                     flex
                     items-center
                     justify-center
                     mb-6
+                    group-hover:bg-blue-600
+                    group-hover:border-blue-600
+                    transition-all
+                    duration-300
                   "
                 >
                   <Icon
                     size={26}
-                    className="text-white"
+                    strokeWidth={2}
+                    className="
+                      text-blue-600
+                      group-hover:text-white
+                      transition-colors
+                      duration-300
+                    "
                   />
                 </div>
 
-                <h3 className="text-2xl font-bold text-[#020826] mb-3">
+                {/* Title */}
+                <h3
+                  className="
+                    text-xl
+                    md:text-2xl
+                    font-bold
+                    text-slate-900
+                    mb-3
+                  "
+                >
                   {feature.title}
                 </h3>
 
-                <p className="text-lg text-slate-500 leading-relaxed">
+                {/* Description */}
+                <p
+                  className="
+                    text-base
+                    md:text-lg
+                    text-slate-500
+                    leading-relaxed
+                  "
+                >
                   {feature.description}
                 </p>
+
               </div>
             );
           })}
+
         </div>
       </div>
     </section>

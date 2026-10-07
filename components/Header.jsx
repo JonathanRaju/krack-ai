@@ -11,21 +11,20 @@ export default function NavBar() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [user, setUser] = useState({});
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const router = useRouter();
-useEffect(() => {
-    loadUser()
-    // console.log(user)
-}, []);
 
-const loadUser = async () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
     try {
       const response = await fetch("/api/me");
-  
       const data = await response.json();
-  
+
       if (data.authenticated) {
-        // console.log(data.user)
-        setUser({...data.user});
+        setUser({ ...data.user });
       } else {
         setUser(null);
       }
@@ -39,10 +38,10 @@ const loadUser = async () => {
       await fetch("/api/logout", {
         method: "POST",
       });
-  
+
       setUser(null);
       setShowProfileMenu(false);
-  
+
       router.push("/");
       router.refresh();
     } catch (error) {
@@ -50,15 +49,33 @@ const loadUser = async () => {
     }
   };
 
+  const closeMobileMenu = () => {
+    setOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
 
         {/* Logo */}
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => {
-            router.push('/')
-        }}>
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-pink-500 to-orange-300 flex items-center justify-center text-white font-bold text-2xl">
+        <div
+          className="flex items-center gap-3 cursor-pointer"
+          onClick={() => router.push("/")}
+        >
+          <div
+            className="
+              w-11 h-11
+              rounded-xl
+              bg-blue-600
+              flex
+              items-center
+              justify-center
+              text-white
+              font-bold
+              text-xl
+              shadow-sm
+            "
+          >
             K
           </div>
 
@@ -68,171 +85,274 @@ const loadUser = async () => {
         </div>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-10 text-slate-600">
-        <span className="cursor-pointer" onClick={() => router.push('/#features')}>Features</span>
-            {/* <span className="cursor-pointer" onClick={() => router.push('/#reviews')}>Reviews</span> */}
-            <span className="cursor-pointer" onClick={() => router.push('/#privacy')}>Privacy</span>
-            <span className="cursor-pointer" onClick={() => router.push('/#pricing')}>Pricing</span>
-            <span className="cursor-pointer" onClick={() => {
-                router.push('/referral-program')
-                }}>Referral Program</span>
+        <nav className="hidden md:flex items-center gap-9 text-[16px] font-medium text-slate-600">
 
-          <Link className="cursor-pointer" href="/download">Download</Link>
-          <Link className="cursor-pointer" href="/how-to-use">How To Use</Link>
+          <span
+            className="cursor-pointer hover:text-blue-600 transition-colors"
+            onClick={() => router.push("/#features")}
+          >
+            Features
+          </span>
 
+          <span
+            className="cursor-pointer hover:text-blue-600 transition-colors"
+            onClick={() => router.push("/#privacy")}
+          >
+            Privacy
+          </span>
 
+          <span
+            className="cursor-pointer hover:text-blue-600 transition-colors"
+            onClick={() => router.push("/#pricing")}
+          >
+            Pricing
+          </span>
 
+          <span
+            className="cursor-pointer hover:text-blue-600 transition-colors"
+            onClick={() => router.push("/referral-program")}
+          >
+            Referral Program
+          </span>
+
+          <Link
+            className="cursor-pointer hover:text-blue-600 transition-colors"
+            href="/download"
+          >
+            Download
+          </Link>
+
+          <Link
+            className="cursor-pointer hover:text-blue-600 transition-colors"
+            href="/how-to-use"
+          >
+            How To Use
+          </Link>
         </nav>
 
-        {/* Desktop Button */}
+        {/* Desktop Auth */}
         {user?.firstName ? (
-  <div className="relative">
-    <button
-      onClick={() =>
-        setShowProfileMenu(!showProfileMenu)
-      }
-      className="
-        hidden md:block
-        w-12
-        h-12
-        rounded-full
-        text-white
-        font-bold
-        bg-gradient-to-r
-        from-pink-500
-        to-orange-300
-        flex
-        items-center
-        justify-center
-      "
-    >
-      {user.firstName[0]}
-      {user.lastName?.[0]}
-    </button>
+          <div className="relative hidden md:block">
 
-    {showProfileMenu && (
-      <div className="absolute right-0 top-14 bg-white shadow-lg rounded-xl border w-48">
-        <button
-          onClick={() => {
-            // console.log("kkkkkk")
-            setShowProfileMenu(false);
-            router.push("/profile");
-          }}
-          className="w-full text-left px-4 py-3 hover:bg-gray-50"
-        >
-          Profile
-        </button>
+            <button
+              onClick={() => setShowProfileMenu(!showProfileMenu)}
+              className="
+                w-11
+                h-11
+                rounded-full
+                bg-blue-600
+                hover:bg-blue-700
+                text-white
+                font-semibold
+                flex
+                items-center
+                justify-center
+                transition-colors
+                shadow-sm
+              "
+            >
+              {user.firstName[0]}
+              {user.lastName?.[0]}
+            </button>
 
-        <button
-          onClick={handleLogout}
-          className="w-full text-left px-4 py-3 text-red-500 hover:bg-red-50"
-        >
-          Logout
-        </button>
-      </div>
-    )}
-  </div>
-) : (
-  <button
-    onClick={() => setShowAuthModal(true)}
-    className="
-      hidden md:block
-      px-8 py-3
-      rounded-full
-      text-white
-      font-semibold
-      bg-gradient-to-r
-      from-pink-500
-      to-orange-300
-    "
-  >
-    Sign In
-  </button>
-)}
+            {showProfileMenu && (
+              <div
+                className="
+                  absolute
+                  right-0
+                  top-14
+                  bg-white
+                  shadow-xl
+                  rounded-xl
+                  border
+                  border-slate-200
+                  w-48
+                  overflow-hidden
+                "
+              >
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    router.push("/profile");
+                  }}
+                  className="
+                    w-full
+                    text-left
+                    px-4
+                    py-3
+                    text-slate-700
+                    hover:bg-slate-50
+                    transition-colors
+                  "
+                >
+                  Profile
+                </button>
+
+                <button
+                  onClick={handleLogout}
+                  className="
+                    w-full
+                    text-left
+                    px-4
+                    py-3
+                    text-red-600
+                    hover:bg-red-50
+                    transition-colors
+                  "
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="
+              hidden
+              md:block
+              px-7
+              py-2.5
+              rounded-lg
+              bg-blue-600
+              hover:bg-blue-700
+              text-white
+              font-semibold
+              text-sm
+              transition-colors
+              shadow-sm
+            "
+          >
+            Sign In
+          </button>
+        )}
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden"
+          className="md:hidden text-slate-700"
           onClick={() => setOpen(!open)}
         >
-          {open ? <X size={28} /> : <Menu size={28} />}
+          {open ? <X size={27} /> : <Menu size={27} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden border-t z-1000000 bg-white text-black">
-          <div className="flex flex-col p-4 gap-4">
+        <div className="md:hidden border-t border-slate-200 bg-white text-slate-700">
+          <div className="flex flex-col p-5 gap-5">
 
-            <span onClick={() => {
-                router.push('/#features')
-                setOpen(false)
-                }}>Features</span>
-            {/* <span onClick={() => {
-                router.push('/#reviews')
-                setOpen(false)
-                }}>Reviews</span> */}
-            <span onClick={() => {
-                router.push('/#privacy')
-                setOpen(false)
-                }}>Privacy</span>
-            <span onClick={() => {
-                router.push('/#pricing')
-                setOpen(false)
-                }}>Pricing</span>
-            <span onClick={() => {
-                router.push('/download')
-                setOpen(false)
-                }}>Download</span>
-            <span onClick={() => {
-                router.push('/how-to-use')
-                setOpen(false)
-                }}>How To Use</span>            
-            <span onClick={() => {
-                router.push('/referral-program')
-                setOpen(false)
-                }}>Referral Program</span>
+            <span
+              className="cursor-pointer hover:text-blue-600"
+              onClick={() => {
+                router.push("/#features");
+                closeMobileMenu();
+              }}
+            >
+              Features
+            </span>
 
-            
+            <span
+              className="cursor-pointer hover:text-blue-600"
+              onClick={() => {
+                router.push("/#privacy");
+                closeMobileMenu();
+              }}
+            >
+              Privacy
+            </span>
+
+            <span
+              className="cursor-pointer hover:text-blue-600"
+              onClick={() => {
+                router.push("/#pricing");
+                closeMobileMenu();
+              }}
+            >
+              Pricing
+            </span>
+
+            <span
+              className="cursor-pointer hover:text-blue-600"
+              onClick={() => {
+                router.push("/download");
+                closeMobileMenu();
+              }}
+            >
+              Download
+            </span>
+
+            <span
+              className="cursor-pointer hover:text-blue-600"
+              onClick={() => {
+                router.push("/how-to-use");
+                closeMobileMenu();
+              }}
+            >
+              How To Use
+            </span>
+
+            <span
+              className="cursor-pointer hover:text-blue-600"
+              onClick={() => {
+                router.push("/referral-program");
+                closeMobileMenu();
+              }}
+            >
+              Referral Program
+            </span>
 
             {user?.firstName ? (
-                <>
+              <>
                 <span
-            onClick={() => {
-                setShowProfileMenu(false);
-                router.push("/profile");
-                setOpen(false)
-              }}>Profile</span>
-            <span onClick={handleLogout}>Logout</span>
-                </>
-            ) : (
-  <button
-    onClick={() =>
-      setShowAuthModal(true)
-    }
-    className="
-       md:block
-      px-8 py-3
-      rounded-full
-      text-white
-      font-semibold
-      bg-gradient-to-r
-      from-pink-500
-      to-orange-300
-    "
-  >
-    Sign In
-  </button>
-)}
+                  className="cursor-pointer hover:text-blue-600"
+                  onClick={() => {
+                    router.push("/profile");
+                    closeMobileMenu();
+                  }}
+                >
+                  Profile
+                </span>
 
+                <span
+                  className="cursor-pointer text-red-600"
+                  onClick={() => {
+                    handleLogout();
+                    closeMobileMenu();
+                  }}
+                >
+                  Logout
+                </span>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  setShowAuthModal(true);
+                  closeMobileMenu();
+                }}
+                className="
+                  w-full
+                  px-6
+                  py-3
+                  rounded-lg
+                  bg-blue-600
+                  hover:bg-blue-700
+                  text-white
+                  font-semibold
+                  transition-colors
+                "
+              >
+                Sign In
+              </button>
+            )}
           </div>
         </div>
       )}
+
       <AuthModal
         open={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onLoginSuccess={loadUser}
-        />
+      />
     </header>
   );
 }

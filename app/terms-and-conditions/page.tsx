@@ -8,37 +8,47 @@ export const metadata: Metadata = {
 
 export default function TermsAndConditionsPage() {
   return (
-    <main className="bg-[#fafafa] min-h-screen py-20">
+    <main className="min-h-screen bg-slate-50 py-16 md:py-20">
       <div className="max-w-5xl mx-auto px-6">
 
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-[#020826]">
+        <div className="text-center mb-12 md:mb-16">
+          <div className="inline-flex items-center px-3 py-1.5 mb-5 rounded-lg bg-blue-50 border border-blue-100">
+            <span className="text-sm font-semibold text-blue-700">
+              Legal Information
+            </span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-950">
             Terms &{" "}
-            <span className="bg-gradient-to-r from-pink-500 via-orange-400 to-orange-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
               Conditions
             </span>
           </h1>
 
-          <p className="mt-6 text-xl text-slate-500">
+          <p className="mt-5 text-base md:text-lg text-slate-500">
             Last Updated: June 2026
           </p>
         </div>
 
         {/* Content */}
-        <div className="bg-white border border-gray-200 rounded-3xl p-8 md:p-12 shadow-sm">
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-10 lg:p-12 shadow-sm">
 
+          {/* Introduction */}
           <section className="mb-10">
-            <p className="text-lg text-slate-600 leading-8">
-              Welcome to Krack-AI. These Terms & Conditions govern
-              your access to and use of our website, applications,
-              and services. By using Krack-AI, you agree to comply
-              with these terms.
-            </p>
+            <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
+              <p className="text-base md:text-lg text-slate-700 leading-8">
+                Welcome to Krack-AI. These Terms & Conditions govern
+                your access to and use of our website, applications,
+                and services. By using Krack-AI, you agree to comply
+                with these terms.
+              </p>
+            </div>
           </section>
 
+          {/* 1 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               1. Acceptance of Terms
             </h2>
 
@@ -49,8 +59,9 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
 
+          {/* 2 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               2. Eligibility
             </h2>
 
@@ -60,47 +71,67 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
 
+          {/* 3 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               3. User Accounts
             </h2>
 
-            <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>You are responsible for maintaining account security.</li>
-              <li>You must provide accurate information.</li>
-              <li>You are responsible for activities performed using your account.</li>
-              <li>You must notify us immediately of unauthorized access.</li>
+            <ul className="space-y-3 text-slate-600">
+              {[
+                "You are responsible for maintaining account security.",
+                "You must provide accurate information.",
+                "You are responsible for activities performed using your account.",
+                "You must notify us immediately of unauthorized access.",
+              ].map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="mt-2 w-2 h-2 rounded-full bg-blue-600 shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </section>
 
+          {/* 4 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               4. Subscription & Payments
             </h2>
 
-            <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Paid plans provide additional usage minutes and features.</li>
-              <li>Prices are subject to change without notice.</li>
-              <li>Payments are processed through third-party providers.</li>
-              <li>You agree to pay all applicable charges associated with your plan.</li>
+            <ul className="space-y-3 text-slate-600">
+              {[
+                "Paid plans provide additional usage minutes and features.",
+                "Prices are subject to change without notice.",
+                "Payments are processed through third-party providers.",
+                "You agree to pay all applicable charges associated with your plan.",
+              ].map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="mt-2 w-2 h-2 rounded-full bg-blue-600 shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </section>
 
+          {/* 5 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               5. Refund Policy
             </h2>
 
-            <p className="text-slate-600 leading-8">
-              Due to the digital nature of our services, purchases
-              may not be refundable after successful delivery of
-              credits, minutes, or premium features unless required
-              by applicable law.
-            </p>
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+              <p className="text-slate-600 leading-8">
+                Due to the digital nature of our services, purchases
+                may not be refundable after successful delivery of
+                credits, minutes, or premium features unless required
+                by applicable law.
+              </p>
+            </div>
           </section>
 
+          {/* 6 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               6. Acceptable Use
             </h2>
 
@@ -108,32 +139,43 @@ export default function TermsAndConditionsPage() {
               You agree not to:
             </p>
 
-            <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Use the service for unlawful purposes.</li>
-              <li>Attempt to reverse engineer the platform.</li>
-              <li>Interfere with platform security.</li>
-              <li>Abuse system resources.</li>
-              <li>Share accounts with multiple users.</li>
-              <li>Use automated tools to exploit the service.</li>
+            <ul className="space-y-3 text-slate-600">
+              {[
+                "Use the service for unlawful purposes.",
+                "Attempt to reverse engineer the platform.",
+                "Interfere with platform security.",
+                "Abuse system resources.",
+                "Share accounts with multiple users.",
+                "Use automated tools to exploit the service.",
+              ].map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="mt-2 w-2 h-2 rounded-full bg-blue-600 shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </section>
 
+          {/* 7 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               7. AI Disclaimer
             </h2>
 
-            <p className="text-slate-600 leading-8">
-              Krack-AI provides AI-generated suggestions and
-              interview assistance. While we strive for accuracy,
-              responses may contain inaccuracies or incomplete
-              information. Users are responsible for verifying
-              outputs before relying on them.
-            </p>
+            <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-5">
+              <p className="text-slate-700 leading-8">
+                Krack-AI provides AI-generated suggestions and
+                interview assistance. While we strive for accuracy,
+                responses may contain inaccuracies or incomplete
+                information. Users are responsible for verifying
+                outputs before relying on them.
+              </p>
+            </div>
           </section>
 
+          {/* 8 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               8. Intellectual Property
             </h2>
 
@@ -144,8 +186,9 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
 
+          {/* 9 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               9. Service Availability
             </h2>
 
@@ -155,8 +198,9 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
 
+          {/* 10 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               10. Account Suspension
             </h2>
 
@@ -167,8 +211,9 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
 
+          {/* 11 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               11. Limitation of Liability
             </h2>
 
@@ -179,8 +224,9 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
 
+          {/* 12 */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               12. Changes to Terms
             </h2>
 
@@ -191,17 +237,46 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
 
+          {/* 13 */}
           <section>
-            <h2 className="text-3xl font-bold text-[#020826] mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-950 mb-4">
               13. Contact Us
             </h2>
 
-            <div className="space-y-3 text-slate-600">
-              <p>Email: support@krack-ai.com</p>
-              <p>Website: https://krack-ai.com</p>
+            <div className="bg-slate-950 rounded-xl p-6">
+              <div className="space-y-3">
+                <p className="text-slate-300">
+                  Email:{" "}
+                  <a
+                    href="mailto:support@krack-ai.com"
+                    className="text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    support@krack-ai.com
+                  </a>
+                </p>
+
+                <p className="text-slate-300">
+                  Website:{" "}
+                  <a
+                    href="https://krack-ai.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    krack-ai.com
+                  </a>
+                </p>
+              </div>
             </div>
           </section>
 
+        </div>
+
+        {/* Footer Note */}
+        <div className="text-center mt-8">
+          <p className="text-sm text-slate-400">
+            © {new Date().getFullYear()} Krack-AI. All rights reserved.
+          </p>
         </div>
       </div>
     </main>

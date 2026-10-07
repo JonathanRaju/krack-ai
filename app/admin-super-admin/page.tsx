@@ -505,7 +505,7 @@ const pendingPayments = filteredUsers.filter(
       </div>
 
       {/* FOOTER */}
-      <div className="px-6 py-4 border-t bg-slate-50 flex items-center justify-end gap-3">
+      <div className="px-3 py-3 border-t bg-slate-50 flex items-center justify-end gap-3">
 
         <button
           type="button"
@@ -885,11 +885,11 @@ const pendingPayments = filteredUsers.filter(
 
             <div className="overflow-x-auto">
 
-              <table className="w-full min-w-[1500px]">
+              <table className="w-full min-w-[1000px]">
 
                 <thead>
                   <tr className="bg-slate-50 border-b">
-                    <th className="px-4 py-4 w-[55px]">
+                    <th className="px-3 py-3 w-[55px]">
       <input
         type="checkbox"
         checked={allFilteredSelected}
@@ -899,38 +899,38 @@ const pendingPayments = filteredUsers.filter(
       />
     </th>
 
-                    <th className="px-4 py-4 text-left text-sm font-semibold text-slate-600">
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-slate-600">
                       User
                     </th>
 
-                    <th className="px-4 py-4 text-left text-sm font-semibold text-slate-600">
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-slate-600">
                       Contact
                     </th>
 
 
-                    {/* <th className="px-4 py-4 text-center text-sm font-semibold text-slate-600">
+                    {/* <th className="px-3 py-3 text-center text-sm font-semibold text-slate-600">
                       Payments
                     </th> */}
 
-                    <th className="px-4 py-4 text-left text-sm font-semibold text-slate-600">
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-slate-600">
                       Total Spent
                     </th>
 
-                    <th className="px-4 py-4 text-left text-sm font-semibold text-slate-600">
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-slate-600">
                       Latest Pending
                     </th>
 
-                    <th className="px-4 py-4 text-left text-sm font-semibold text-slate-600">
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-slate-600">
                       Joined
                     </th>
 
-                    <th className="px-4 py-4 text-center text-sm font-semibold text-slate-600">
+                    <th className="px-3 py-3 text-center text-sm font-semibold text-slate-600">
                       Status
                     </th>
 
-                    <th className="px-4 py-4 text-center text-sm font-semibold text-slate-600">
+                    {/* <th className="px-3 py-3 text-center text-sm font-semibold text-slate-600">
                       Details
-                    </th>
+                    </th> */}
 
                   </tr>
                 </thead>
@@ -942,6 +942,10 @@ const pendingPayments = filteredUsers.filter(
 
                     <>
                       <tr
+                      onClick={() =>
+                              // @ts-ignore
+                              toggleUser(user.email)
+                            }
                         key={user.email}
                         className="border-b hover:bg-slate-50 transition"
                       >
@@ -962,11 +966,11 @@ const pendingPayments = filteredUsers.filter(
   />
 </td>
 
-                        <td className="px-4 py-5">
+                        <td className="px-3 py-3">
 
                           <div className="flex items-center gap-3">
 
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-orange-400 flex items-center justify-center text-white font-bold">
+                            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-sm">
                               {(user.firstName?.[0] || "U").toUpperCase()}
                             </div>
 
@@ -1098,7 +1102,7 @@ const pendingPayments = filteredUsers.filter(
 
                         {/* DETAILS */}
 
-                        <td className="px-4 py-5 text-center">
+                        {/* <td className="px-4 py-5 text-center">
 
                           <button
                             onClick={() =>
@@ -1116,7 +1120,7 @@ const pendingPayments = filteredUsers.filter(
 
                           </button>
 
-                        </td>
+                        </td> */}
 
                       </tr>
 
@@ -1128,7 +1132,7 @@ const pendingPayments = filteredUsers.filter(
                         <tr key={`${user.email}-details`}>
                           <td
                             colSpan={10}
-                            className="bg-slate-50 px-8 py-6"
+                            className="bg-slate-50 px-3 py-6"
                           >
 
                             <div className="grid md:grid-cols-3 gap-5 mb-6">
@@ -1173,7 +1177,7 @@ const pendingPayments = filteredUsers.filter(
 
                             <div className="bg-white border rounded-xl overflow-hidden">
 
-                              <div className="px-4 py-4 border-b">
+                              <div className="px-3 py-3 border-b">
                                 <h3 className="font-bold text-lg">
                                   Payment History
                                 </h3>
@@ -1189,7 +1193,7 @@ const pendingPayments = filteredUsers.filter(
 
                                 <div className="overflow-x-auto">
 
-                                  <table className="w-full">
+                                  <table className="w-full table-fixed text-sm">
 
                                     <thead>
                                       <tr className="bg-slate-50">
@@ -1231,11 +1235,11 @@ const pendingPayments = filteredUsers.filter(
                                             className="border-t"
                                           >
 
-                                            <td className="px-4 py-4 text-sm font-mono">
+                                            <td className="px-3 py-3 text-sm font-mono">
                                               {payment.orderId}
                                             </td>
 
-                                            <td className="px-4 py-4">
+                                            <td className="px-3 py-3">
                                               <p className="font-semibold text-sm">
                                                 {payment.planName || "-"}
                                               </p>
@@ -1245,14 +1249,14 @@ const pendingPayments = filteredUsers.filter(
                                               </p>
                                             </td>
 
-                                            <td className="px-4 py-4 text-right text-sm text-slate-400">
+                                            <td className="px-3 py-3 text-right text-sm text-slate-400">
                                               ₹
                                               {Number(
                                                 payment.originalPrice || 0
                                               ).toLocaleString("en-IN")}
                                             </td>
 
-                                            <td className="px-4 py-4 text-right font-bold text-sm">
+                                            <td className="px-3 py-3 text-right font-bold text-sm">
                                               ₹
                                               {Number(
                                                 payment.offerPrice ||
@@ -1260,7 +1264,7 @@ const pendingPayments = filteredUsers.filter(
                                               ).toLocaleString("en-IN")}
                                             </td>
 
-                                            <td className="px-4 py-4 text-center text-sm">
+                                            <td className="px-3 py-3 text-center text-sm">
                                               {payment.minutes || 0}
 
                                               {payment.bonusMinutes ? (
@@ -1270,7 +1274,7 @@ const pendingPayments = filteredUsers.filter(
                                               ) : null}
                                             </td>
 
-                                            <td className="px-4 py-4 text-sm text-slate-500">
+                                            <td className="px-3 py-3 text-sm text-slate-500">
                                               {formatDateTime(
                                                 payment.createdAt
                                               )}
