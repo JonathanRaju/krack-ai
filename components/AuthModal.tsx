@@ -17,7 +17,7 @@ export default function AuthModal({
     onLoginSuccess
 }: Props) {
     const [mode, setMode] =
-        useState<"login" | "register" | "forgot">("login");
+        useState<"login" | "register" | "forgot">("register");
 
     const [step, setStep] = useState(1);
     const [forgotStep, setForgotStep] = useState(1);

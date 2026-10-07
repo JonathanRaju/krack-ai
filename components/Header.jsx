@@ -223,7 +223,7 @@ export default function NavBar() {
               shadow-sm
             "
           >
-            Sign In
+            Sign In / Sign Up
           </button>
         )}
 
