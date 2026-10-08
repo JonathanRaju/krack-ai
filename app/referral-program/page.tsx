@@ -67,7 +67,7 @@ export default function ReferralProgramPage() {
         },
         body: JSON.stringify({
           //@ts-ignore
-          email: user.email,
+          email: user.email.toLowerCase(),
         }),
       });
 
@@ -125,8 +125,8 @@ export default function ReferralProgramPage() {
           },
           body: JSON.stringify({
             //@ts-ignore
-            referrerEmail: user?.email,
-            referredEmail: friendEmail.trim(),
+            referrerEmail: user?.email.toLowerCase(),
+            referredEmail: friendEmail.trim().toLowerCase(),
           }),
         }
       );
