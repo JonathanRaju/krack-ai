@@ -130,7 +130,7 @@ export default function AuthModal({
             regsiterForm.phone.length !== 10
         ) {
             showSnackbar(
-                "Enter valid phone number",
+                "Enter valid phone number. Please enter 10 digit mobile number",
                 "error"
             );
             return false;
@@ -239,7 +239,7 @@ export default function AuthModal({
                             "application/json",
                     },
                     body: JSON.stringify({
-                        email: regsiterForm.email,
+                        email: regsiterForm.email.toLowerCase(),
                         name: regsiterForm.firstName,
                     }),
                 }
@@ -286,7 +286,7 @@ export default function AuthModal({
                             "application/json",
                     },
                     body: JSON.stringify({
-                        email: regsiterForm.email,
+                        email: regsiterForm.email.toLowerCase(),
                         otp,
                     }),
                 }
@@ -369,8 +369,10 @@ export default function AuthModal({
         if (!validateStep3()) return;
 
         try {
+            let updatedEmail = regsiterForm.email.toLowerCase()
             const payload = {
                 ...regsiterForm,
+                email: updatedEmail,
                 projects,
             };
 
@@ -447,7 +449,7 @@ export default function AuthModal({
                             "application/json",
                     },
                     body: JSON.stringify(
-                        loginForm
+                        {email: loginForm.email.toLowerCase(), password: loginForm.password}
                     ),
                 }
             );
@@ -515,7 +517,7 @@ export default function AuthModal({
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        email: forgotForm.email,
+                        email: forgotForm.email.toLowerCase(),
                     }),
                 }
             );
@@ -556,7 +558,7 @@ export default function AuthModal({
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        email: forgotForm.email,
+                        email: forgotForm.email.toLowerCase(),
                         otp: forgotOtp,
                     }),
                 }
@@ -620,7 +622,7 @@ export default function AuthModal({
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        email: forgotForm.email,
+                        email: forgotForm.email.toLowerCase(),
                         otp: forgotOtp,
                         password: forgotForm.password,
                     }),
@@ -667,7 +669,11 @@ export default function AuthModal({
 // ================================
 
 <div className="fixed inset-0 z-[9999999] bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
-
+  <Snackbar
+          open={snackbar.open}
+          message={snackbar.message}
+          type={snackbar.type}
+        />
   <div
     className="
       bg-white
@@ -1372,7 +1378,7 @@ export default function AuthModal({
                 name="phone"
                 value={regsiterForm.phone}
                 onChange={handleChange}
-                placeholder="Phone"
+                placeholder="Phone (Enter Only 10 digits)"
                 className="
                   w-full
                   border

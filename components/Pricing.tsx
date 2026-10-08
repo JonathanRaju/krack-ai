@@ -136,7 +136,7 @@ export default function Pricing() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: currentUser.email,
+            email: currentUser.email.toLowerCase(),
             phone: currentUser.phone,
             planId: plan.id,
           }),
