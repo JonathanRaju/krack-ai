@@ -143,6 +143,7 @@ export default function ProfilePage() {
           },
           body: JSON.stringify({
             ...form,
+            email: form.email.toLowerCase(),
             projects,
           }),
         }
